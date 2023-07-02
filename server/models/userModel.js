@@ -4,15 +4,6 @@ const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs')
 
-userSchema.pre('save', function(next) {
-  bcrypt.hash(this.password, SALT_WORK_FACTOR,
-  (err, has) => {
-    if (err) return next(err);
-    this.password = hash;
-    return next();
-  })
-});
-
 // set a schema for the 'users' collectionx
 const userSchema = new Schema({
   first_name: {
@@ -35,6 +26,15 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
+});
+
+userSchema.pre('save', function(next) {
+  bcrypt.hash(this.password, SALT_WORK_FACTOR,
+  (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    return next();
+  })
 });
 
 const User = mongoose.model('User', userSchema);

@@ -6,7 +6,7 @@ function Login() {
   //direct you anywhere as long as you have specified that path before
   const navigate = useNavigate();
 
-  // const URL = 'http://localhost:3000/signup';
+  const URL = 'http://localhost:3000/login';
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ function Login() {
       }),
     })
       .then((res) => {
-        res.json();
+       return res.json();
       })
       .then((data) => {
         console.log("HELLLOOO WORLD");
