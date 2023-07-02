@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 const UserController = {
   // Create a new user in the Database
@@ -33,7 +34,7 @@ const UserController = {
   },
   // get method for fetching user based off of username
   getUser(req, res, next) {
-    const { username } = req.params;
+    const { username, password } = req.params;
     User.findOne({ username: name })
       .then((user) => {
         // if doc is found

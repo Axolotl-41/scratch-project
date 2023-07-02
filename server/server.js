@@ -35,11 +35,14 @@ app.get('/', (req, res) => {
 });
 
 // post method for user to db
-app.post('/signup', userController.createUser, (req, res) => {
+app.post('/signup', userController.createUser, userController.getUser, (req, res) => {
   console.log('--entering post method for route--');
   return res.status(200).json(res.locals.newUser);
 });
 
+app.post('/login', userController.getUser, (req, res) => {
+  return res.status(200).json(res.locals.user);
+})
 // app.use('/dashboard', routenamevar);
 
 // Serve index.html for all routes
