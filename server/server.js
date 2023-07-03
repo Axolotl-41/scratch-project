@@ -61,7 +61,11 @@ app.post('/signup', userController.createUser, (req, res) => {
 
 app.post('/login', userController.getUser, (req, res) => {
   // upon successful sign up
-  return res.status(200).json(res.locals.user);
+
+  return res.status(200).json({
+    username: res.locals.user.username,
+    zipcode: res.locals.user.zipcode,
+  });
 });
 // app.use('/dashboard', routenamevar);
 
