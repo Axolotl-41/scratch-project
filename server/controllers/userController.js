@@ -21,13 +21,13 @@ const UserController = {
       .save()
       .then((savedDoc) => {
         res.locals.newUser = savedDoc;
-        return next();
+        next();
       })
       .catch((error) => {
         return next({
-          log: "error in update student",
+          log: "error in createUser",
           status: 500,
-          message: "Student name cannot be updated",
+          message: "User create failed",
         });
       }
       )
@@ -35,12 +35,21 @@ const UserController = {
   // get method for fetching user based off of username
   getUser(req, res, next) {
     const { username, password } = req.params;
-    User.findOne({ username: name })
+    User.findOne({ username: username })
       .then((user) => {
         // if doc is found
         if (user) {
-          res.locals.user = user;
-          return next();
+          // compare pw
+          bcrypt.compare(password, user.password, function(err, result) {
+            if(err) {
+              return res.status(500).json({ error: 'bcrypt error'});
+            } else if(result) {
+              res.locals.user = user;
+              return next();
+            } else {
+              return res.status(400).json({ error: 'incorrect password' });
+            }
+          });          
         } else {
           return res.status(400).json({ error: 'user not found' });
         }

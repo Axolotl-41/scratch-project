@@ -10,7 +10,7 @@ function Signup() {
 
 
   const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
+  const lastNameRef = useRef(null);2
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const zipcodeRef = useRef(null);
@@ -48,7 +48,7 @@ function Signup() {
       }),
     })
       .then((res) => {
-        res.json();
+        return res.json();
       })
       .then((data) => {
         console.log(data);
