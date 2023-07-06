@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import './main.scss';
 import axios from 'axios';
+import dummyData from '../../data.json'
 
-const Main = (props) => {
-  // const {zipCode} = props
+const Main = ({fetchedData, setFetchedData}) => {
+  // const [fetchedData, setFetchedData] = useState([]);
 
-  const [fetchedData, setFetchedData] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/yelp')
-      .then((response) => {
-        const rawData = response.data.businesses;
-        setFetchedData(rawData);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3000/yelp')
+  //     .then((response) => {
+  //       const rawData = response.data.businesses;
+  //       setFetchedData(rawData);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+  
+  //data from file for dev purposes only
+  // useEffect(() => {
+  //   setFetchedData(dummyData.businesses)
+  // }, []);
 
   return (
-    <article className='main'>
+    <article className='flex flex-wrap gap-1 p-0 m-0 mt-1 ml-72 w-auto rounded-xl'>
       {fetchedData.map((item) => (
         <Card
           key={item.id}

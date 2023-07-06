@@ -12,6 +12,7 @@ const BEARER_TOKEN3 =
 // dummy zipCode
 const location = 20912;
 
+
 // config file for fetching from yelp
 // use the limit to adjust the number of restaurants displayed
 // you can also change the term to another one to get any business
@@ -47,7 +48,40 @@ yelpController.getData = (req, res, next) => {
 };
 
 yelpController.searchData = (req, res, next) => {
+
+  axios
+    .get('https://api.yelp.com/v3/businesses/search',
+     {
+      headers: {
+        Authorization: `Bearer ${BEARER_TOKEN3}`,
+        Origin: 'localhost',
+        withCredentials: true,
+      },
+      params: {
+        term: 'restaurants',
+        location: req.body.location,
+        radius: 1609,
+        limit: 20,
+      },
+    })
+    .then((response) => {
+      res.locals.rawData = response.data;
+      return next();
+    })
+    .catch((error) => {
+      //   console.log(err);
+      return next({
+        log: `Express error handler caught unknown middleware error: ERROR : ${error}`,
+        status: error.status || 400,
+      });
+    });
+
   console.log('entered search controller');
+
+  //filter the data in this controller
+    //make sure to use different request query parameters. 
+
+  console.log(req.body);
   console.log(req.body);
 };
 
