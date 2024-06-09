@@ -11,7 +11,7 @@ const userController = require('./controllers/userController');
 // add model import
 
 const dbUrl =
-  'mongodb+srv://sebastiansarm:1234@cluster0.at2e2ez.mongodb.net/?retryWrites=true&w=majority';
+  'insert URI here';
 
 mongoose
   .connect(dbUrl, {
